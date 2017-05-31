@@ -9,11 +9,11 @@
 import UIKit
 
 protocol ViewFromNib: class {
-  static func fromNib() -> Self
+  static func fromNib() -> Self?
 }
 
-extension ViewFromNib where Self: UIView {
+extension ViewFromNib {//where Self: UIView {
   static func fromNib() -> Self? {
-    return UINib(nibName: String(describing: self), bundle: nil).instantiate(withOwner: nil, options: nil) as? Self
+    return UINib(nibName: String(describing: self), bundle: nil).instantiate(withOwner: nil, options: nil).first as? Self
   }
 }

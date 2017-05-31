@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController" customModule="WeatherApp" customModuleProvider="target">
             <connections>
+                <outlet property="_containerView" destination="J5a-Jh-2Xu" id="9F3-lG-2sw"/>
                 <outlet property="_searchBarView" destination="a1a-2g-skK" id="bFX-DC-005"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,11 +25,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                 </searchBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5a-Jh-2Xu">
+                    <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="a1a-2g-skK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1eW-rt-n5Q"/>
+                <constraint firstItem="J5a-Jh-2Xu" firstAttribute="top" secondItem="a1a-2g-skK" secondAttribute="bottom" id="2kL-LB-8Bj"/>
+                <constraint firstAttribute="trailing" secondItem="J5a-Jh-2Xu" secondAttribute="trailing" id="BsI-WQ-Ln1"/>
                 <constraint firstItem="a1a-2g-skK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="M6f-RO-RIw"/>
+                <constraint firstAttribute="bottom" secondItem="J5a-Jh-2Xu" secondAttribute="bottom" id="Yvn-Xt-gQ5"/>
+                <constraint firstItem="J5a-Jh-2Xu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="neN-Wz-vpr"/>
                 <constraint firstAttribute="trailing" secondItem="a1a-2g-skK" secondAttribute="trailing" id="nlC-RD-a7Y"/>
             </constraints>
             <point key="canvasLocation" x="-41" y="-164"/>

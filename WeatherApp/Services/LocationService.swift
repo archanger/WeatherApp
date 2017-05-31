@@ -12,6 +12,7 @@ import CoreLocation
 protocol LocationServiceProtocol {
   func requestAuthorization(completion: @escaping (Bool) -> Void)
   func requestCurrentLocation(completion: @escaping (CLLocationCoordinate2D?) -> Void)
+  func isServiceEnabled() -> Bool
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
@@ -21,30 +22,32 @@ class LocationService: NSObject, LocationServiceProtocol {
     _location.delegate = self
   }
   
-  func requestAuthorization(completion: @escaping (Bool) -> Void) {
+  func isServiceEnabled() -> Bool {
+    return CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+  }
   
-    if (_currentStatus != .authorizedWhenInUse) {
+  func requestAuthorization(completion: @escaping (Bool) -> Void) {
+    if (CLLocationManager.authorizationStatus() == .notDetermined) {
       _location.requestWhenInUseAuthorization()
       _completionAuth = completion
     } else {
-      _completionAuth?(_currentStatus == .authorizedWhenInUse)
+      completion(isServiceEnabled())
     }
   }
   
   func requestCurrentLocation(completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+    _completionLocation = completion
     _location.requestLocation()
   }
   
   private var _location = CLLocationManager()
-  fileprivate var _currentStatus = CLLocationManager.authorizationStatus()
   fileprivate var _completionAuth: ((Bool) -> Void)?
   fileprivate var _completionLocation: ((CLLocationCoordinate2D?) -> Void)?
 }
 
 extension LocationService: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    _currentStatus = status
-    _completionAuth?(_currentStatus == .authorizedWhenInUse)
+    _completionAuth?(isServiceEnabled())
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

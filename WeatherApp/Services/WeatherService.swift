@@ -11,14 +11,14 @@ import CoreLocation
 
 protocol WeatherServiceProtocol {
   func requestWeather(for location: CLLocationCoordinate2D, completion: @escaping (Weather?) -> Void)
-  func requestWeather(fro city: String, completion: @escaping (Weather?) -> Void)
-  func requestWeather(fro cityId: Int, completion: @escaping (Weather?) -> Void)
+  func requestWeather(for city: String, completion: @escaping (Weather?) -> Void)
+  func requestWeather(for cityId: Int, completion: @escaping (Weather?) -> Void)
 }
 
 class WeatherService: WeatherServiceProtocol {
   
   
-  func requestWeather(fro city: String, completion: @escaping (Weather?) -> Void) {
+  func requestWeather(for city: String, completion: @escaping (Weather?) -> Void) {
     let url = WeatherAPIRequest().url(for: city)
     request(with: url, completion: completion)
   }
@@ -28,7 +28,7 @@ class WeatherService: WeatherServiceProtocol {
     request(with: url, completion: completion)
   }
   
-  func requestWeather(fro cityId: Int, completion: @escaping (Weather?) -> Void) {
+  func requestWeather(for cityId: Int, completion: @escaping (Weather?) -> Void) {
     let url = WeatherAPIRequest().url(for: cityId)
     request(with: url, completion: completion)
   }
