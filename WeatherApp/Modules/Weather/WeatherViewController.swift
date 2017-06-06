@@ -34,6 +34,9 @@ class WeatherViewController: UIViewController {
     let locationButton = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(locationTapped))
     navigationItem.leftBarButtonItems = [locationButton]
     
+    let historyButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(historyTapped))
+    navigationItem.rightBarButtonItems = [historyButton]
+    
     _setupWeatherView()
     _setupLoadingView()
   }
@@ -42,6 +45,16 @@ class WeatherViewController: UIViewController {
     _loadingView.setState(LoadingState())
     setVisibleLoadingView(1.0)
     self._source.fetchWeatherForCurrentLocation()
+  }
+  
+  @objc private func historyTapped() {
+    let vc = HistoryViewController.fromNib
+    vc.completion = { [weak self] id in
+      self?._loadingView.setState(LoadingState())
+      self?.setVisibleLoadingView(1.0)
+      self?._source.fetchWeather(for: id)
+    }
+    self.navigationController?.pushViewController(vc, animated: true)
   }
   
   private func _setupWeatherView() {

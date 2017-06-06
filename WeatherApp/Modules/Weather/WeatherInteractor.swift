@@ -17,6 +17,7 @@ protocol WeatherOutput: class {
 protocol WeatherSource {
   func isLocationServiceEnabled() -> Bool
   func fetchWeather(for city: String)
+  func fetchWeather(for cityId: Int)
   func fetchWeatherForCurrentLocation()
 }
 
@@ -39,6 +40,13 @@ class WeatherInteractor {
 }
 
 extension WeatherInteractor: WeatherSource {
+  
+  func fetchWeather(for cityId: Int) {
+    _weatherService.requestWeather(for: cityId) {[unowned self] (weather) in
+      self.receive(weather: weather)
+    }
+  }
+
   func isLocationServiceEnabled() -> Bool {
     return _locationService.isServiceEnabled()
   }

@@ -15,7 +15,13 @@ struct ServiceFactory {
   }
   
   static var weatherService: WeatherServiceProtocol {
-    return WeatherService()
+    return WeatherHistoribleFacade(
+      weatherService: WeatherService(),
+      historyService: DataService()
+    )
   }
   
+  static var dataService: DataServiceProtocol {
+    return DataService()
+  }
 }
